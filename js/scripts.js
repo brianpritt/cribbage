@@ -3,11 +3,11 @@
 //Game Constructor
 function Game () {
   this.players = [];
+  this.crib = [];
   this.deck;
   this.currentPlayer;
   this.dealerCrib;
 }
-
 
 //Deck Constructor
 function Deck () {
@@ -76,11 +76,9 @@ Deck.prototype.create = function () {
       thisDeck.cards.push(card);
     }
   }
-
 };
 
 Deck.prototype.deal = function(players) {
-
   for(i=0; i<players.length; i++){
     for(j=0; j<=5; j++){
       var card = this.cards.pop();
@@ -88,3 +86,13 @@ Deck.prototype.deal = function(players) {
     }
   }
 };
+
+Game.prototype.toCrib = function(card){
+  for (i = 0; i <this.currentPlayer.hand.length; i++){
+    if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
+      this.crib.push(this.currentPlayer.hand[i])
+      this.currentPlayer.hand.splice(i,1);
+    }
+
+  }
+}
