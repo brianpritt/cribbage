@@ -1,3 +1,6 @@
 p{
   display: none;
 }
+#gameField {
+  display: none;
+}
