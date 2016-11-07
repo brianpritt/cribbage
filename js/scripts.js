@@ -94,11 +94,13 @@ Deck.prototype.deal = function(players) {
 Player.prototype.displayHand = function() {
   $("#"+this.userName+" .hand").html("<ul>");
   for (var i=0; i<this.hand.length; i++) {
-    $("#"+this.userName+" .hand").append("<li>" + this.hand[i].rank + " of " + this.hand[i].suit + "</li>");
+    $("#"+this.userName+" .hand").append("<li class='card'>"+this.hand[i].rank + " of " + this.hand[i].suit + "</li>");
   }
   $("#"+this.userName+" .hand").append("</ul>");
 
 }
+
+
 
 $(document).ready(function(){
 
