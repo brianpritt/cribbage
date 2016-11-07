@@ -8,6 +8,18 @@ function Game () {
   this.dealerCrib;
 }
 
+//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
+Game.prototype.newGame = function(numberOfPlayers) {
+  this.deck = new Deck();
+  this.deck.create();
+  this.deck.shuffleDeck();
+
+  for (var i = 0; i<numberOfPlayers; i=i+1){
+    var player = new Player("player" + (i +1));
+    this.players.push(player);
+  }
+  this.currentPlayer = this.players[0];
+}
 
 //Deck Constructor
 function Deck () {
@@ -30,18 +42,6 @@ function Player (userName){
 }
 
 //Deck Methods
-//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
-Game.prototype.newGame = function(numberOfPlayers) {
-  this.deck = new Deck();
-  this.deck.create();
-  this.deck.shuffleDeck();
-
-  for (var i = 0; i<numberOfPlayers; i=i+1){
-    var player = new Player("player" + (i +1));
-    this.players.push(player);
-  }
-  this.currentPlayer = this.players[0];
-}
 
 Deck.prototype.shuffleDeck = function(){
   //This is the Fisher-Yates shuffle
@@ -88,3 +88,34 @@ Deck.prototype.deal = function(players) {
     }
   }
 };
+
+////UI Logic below here
+
+Player.prototype.displayHand = function() {
+  $("#"+this.userName+" .hand").html("<ul>");
+  for (var i=0; i<this.hand.length; i++) {
+    $("#"+this.userName+" .hand").append("<li>" + this.hand[i].rank + " of " + this.hand[i].suit + "</li>");
+  }
+  $("#"+this.userName+" .hand").append("</ul>");
+
+}
+
+$(document).ready(function(){
+
+
+
+  $("#startGame").click(function(){
+    // event.preventDefault();
+    $("#gameStart").hide();
+    $("#gameField").show();
+
+    var game = new Game();
+    game.newGame(2);
+
+    game.deck.deal(game.players);
+    game.players[0].displayHand();
+    game.players[1].displayHand();
+
+
+  });
+});

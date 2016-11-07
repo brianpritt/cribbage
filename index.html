@@ -2,21 +2,36 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all">
+      <link href="css/styles.css" rel="stylesheet" type="text/css" media="all">
+      <script src="js/jquery-3.1.1.js"></script>
+      <script src="js/scripts.js"></script>
     <title></title>
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div id="player-one ">
+      <div class="row" id="gameStart">
+        <div class="col-md-12">
+          <button id="startGame">Start a new game</button>
 
         </div>
-        <div id="table">
+      </div>
+      <div class="row" id="gameField">
+        <div class="col-md-4" id="player1">
+          <div class="hand">
+          </div>
 
         </div>
-        <div id="player-two">
+
+        <div class="col-md-4" id="table">
 
         </div>
-      </div><!--End Row -->
+        <div class="col-md-4" id="player2">
+          <div class="hand">
+          </div>
+        </div>
+
+      </div><!--End gameField -->
     </div><!--End Container -->
   </body>
 </html>
