@@ -13,7 +13,12 @@ function Card (suit, rank, cardValue) {
   this.cardValue = cardValue;
   this.played = false;
 }
-
+//Player Constructor
+function Player (userName,score, hand){
+  this.userName = userName;
+  this.score = score;
+  this.hand = hand;
+}
 
 Deck.prototype.shuffleDeck = function(){
   //This is the Fisher-Yates shuffle
