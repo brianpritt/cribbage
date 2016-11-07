@@ -9,22 +9,6 @@ function Game () {
   this.dealerCrib;
 }
 
-<<<<<<< HEAD
-//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
-Game.prototype.newGame = function(numberOfPlayers) {
-  this.deck = new Deck();
-  this.deck.create();
-  this.deck.shuffleDeck();
-
-  for (var i = 0; i<numberOfPlayers; i=i+1){
-    var player = new Player("player" + (i +1));
-    this.players.push(player);
-  }
-  this.currentPlayer = this.players[0];
-}
-
-=======
->>>>>>> dmbp
 //Deck Constructor
 function Deck () {
     this.cards = [];
@@ -44,6 +28,35 @@ function Player (userName){
   this.score = 0;
   this.hand = [];
 }
+
+//Game Methods
+
+//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
+Game.prototype.newGame = function(numberOfPlayers) {
+  this.deck = new Deck();
+  this.deck.create();
+  this.deck.shuffleDeck();
+
+  for (var i = 0; i<numberOfPlayers; i=i+1){
+    var player = new Player("player" + (i +1));
+    this.players.push(player);
+  }
+  this.currentPlayer = this.players[0];
+}
+
+//Move cards from players hand to game.crib
+Game.prototype.toCrib = function(card){
+  for (i = 0; i <this.currentPlayer.hand.length; i++){
+    if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
+      this.crib.push(this.currentPlayer.hand[i])
+      this.currentPlayer.hand.splice(i,1);
+    }
+
+  }
+}
+
+
+
 
 //Deck Methods
 
@@ -104,7 +117,6 @@ Player.prototype.displayHand = function() {
 }
 
 
-
 $(document).ready(function(){
 
 
@@ -124,13 +136,3 @@ $(document).ready(function(){
 
   });
 });
-
-Game.prototype.toCrib = function(card){
-  for (i = 0; i <this.currentPlayer.hand.length; i++){
-    if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
-      this.crib.push(this.currentPlayer.hand[i])
-      this.currentPlayer.hand.splice(i,1);
-    }
-
-  }
-}
