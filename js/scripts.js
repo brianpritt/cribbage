@@ -84,7 +84,7 @@ Deck.prototype.deal = function(players) {
   for(i=0; i<players.length; i++){
     for(j=0; j<=5; j++){
       var card = this.cards.pop();
-      player[i].hand.push(card);
+      players[i].hand.push(card);
     }
   }
 };
