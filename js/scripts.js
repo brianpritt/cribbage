@@ -8,18 +8,6 @@ function Game () {
   this.dealerCrib;
 }
 
-//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
-Game.prototype.newGame = function(numberOfPlayers) {
-  this.deck = new Deck();
-  this.deck.create();
-  this.deck.shuffleDeck();
-
-  for (var i = 0; i<numberOfPlayers; i=i+1){
-    var player = new Player("player" + (i +1));
-    this.players.push(player);
-  }
-  this.currentPlayer = this.players[0];
-}
 
 //Deck Constructor
 function Deck () {
@@ -42,6 +30,18 @@ function Player (userName){
 }
 
 //Deck Methods
+//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
+Game.prototype.newGame = function(numberOfPlayers) {
+  this.deck = new Deck();
+  this.deck.create();
+  this.deck.shuffleDeck();
+
+  for (var i = 0; i<numberOfPlayers; i=i+1){
+    var player = new Player("player" + (i +1));
+    this.players.push(player);
+  }
+  this.currentPlayer = this.players[0];
+}
 
 Deck.prototype.shuffleDeck = function(){
   //This is the Fisher-Yates shuffle
@@ -84,7 +84,7 @@ Deck.prototype.deal = function(players) {
   for(i=0; i<players.length; i++){
     for(j=0; j<=5; j++){
       var card = this.cards.pop();
-      player[i].hand.push(card);
+      players[i].hand.push(card);
     }
   }
 };
