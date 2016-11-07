@@ -34,7 +34,14 @@ function Card (suit, rank, cardValue) {
   this.cardValue = cardValue;
   this.played = false;
 }
+//Player Constructor
+function Player (userName){
+  this.userName = userName;
+  this.score = 0;
+  this.hand = [];
+}
 
+//Deck Methods
 
 Deck.prototype.shuffleDeck = function(){
   //This is the Fisher-Yates shuffle
@@ -70,4 +77,14 @@ Deck.prototype.create = function () {
     }
   }
 
+};
+
+Deck.prototype.deal = function(players) {
+
+  for(i=0; i<players.length; i++){
+    for(j=0; j<=5; j++){
+      var card = this.cards.pop();
+      player[i].hand.push(card);
+    }
+  }
 };
