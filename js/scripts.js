@@ -1,5 +1,26 @@
 /* BACK END */
 
+//Game Constructor
+function Game () {
+  this.players = [];
+  this.deck;
+  this.currentPlayer;
+  this.dealerCrib;
+}
+
+//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
+Game.prototype.newGame = function(numberOfPlayers) {
+  this.deck = new Deck();
+  this.deck.create();
+  this.deck.shuffleDeck();
+
+  for (var i = 0; i<numberOfPlayers; i=i+1){
+    var player = new Player("player" + (i +1));
+    this.players.push(player);
+  }
+  this.currentPlayer = this.players[0];
+}
+
 //Deck Constructor
 function Deck () {
     this.cards = [];
