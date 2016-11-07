@@ -42,7 +42,7 @@ Deck.prototype.create = function () {
       if (ranks[j] === "Jack" || ranks[j] === "Queen" || ranks[j] === "King") {
         value = 10;
       } else {
-        value = i+1;
+        value = j+1;
       }
       card = new Card(suits[i], ranks[j], value)
       thisDeck.cards.push(card);
