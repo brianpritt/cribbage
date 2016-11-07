@@ -3,22 +3,10 @@
 //Game Constructor
 function Game () {
   this.players = [];
+  this.crib = [];
   this.deck;
   this.currentPlayer;
   this.dealerCrib;
-}
-
-//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
-Game.prototype.newGame = function(numberOfPlayers) {
-  this.deck = new Deck();
-  this.deck.create();
-  this.deck.shuffleDeck();
-
-  for (var i = 0; i<numberOfPlayers; i=i+1){
-    var player = new Player("player" + (i +1));
-    this.players.push(player);
-  }
-  this.currentPlayer = this.players[0];
 }
 
 //Deck Constructor
@@ -40,6 +28,35 @@ function Player (userName){
   this.score = 0;
   this.hand = [];
 }
+
+//Game Methods
+
+//Create and shuffle a new deck, create player objects with automatically assigned names eg. "player1"
+Game.prototype.newGame = function(numberOfPlayers) {
+  this.deck = new Deck();
+  this.deck.create();
+  this.deck.shuffleDeck();
+
+  for (var i = 0; i<numberOfPlayers; i=i+1){
+    var player = new Player("player" + (i +1));
+    this.players.push(player);
+  }
+  this.currentPlayer = this.players[0];
+}
+
+//Move cards from players hand to game.crib
+Game.prototype.toCrib = function(card){
+  for (i = 0; i <this.currentPlayer.hand.length; i++){
+    if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
+      this.crib.push(this.currentPlayer.hand[i])
+      this.currentPlayer.hand.splice(i,1);
+    }
+
+  }
+}
+
+
+
 
 //Deck Methods
 
@@ -76,11 +93,9 @@ Deck.prototype.create = function () {
       thisDeck.cards.push(card);
     }
   }
-
 };
 
 Deck.prototype.deal = function(players) {
-
   for(i=0; i<players.length; i++){
     for(j=0; j<=5; j++){
       var card = this.cards.pop();
@@ -89,16 +104,18 @@ Deck.prototype.deal = function(players) {
   }
 };
 
+
 ////UI Logic below here
 
 Player.prototype.displayHand = function() {
   $("#"+this.userName+" .hand").html("<ul>");
   for (var i=0; i<this.hand.length; i++) {
-    $("#"+this.userName+" .hand").append("<li>" + this.hand[i].rank + " of " + this.hand[i].suit + "</li>");
+    $("#"+this.userName+" .hand").append("<li class='card'>"+this.hand[i].rank + " of " + this.hand[i].suit + "</li>");
   }
   $("#"+this.userName+" .hand").append("</ul>");
 
 }
+
 
 $(document).ready(function(){
 
