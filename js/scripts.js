@@ -71,6 +71,8 @@ Game.prototype.toTable = function(card){
         this.table.push(this.currentPlayer.hand[i]);
         card.played = true;
         this.tableScore += card.cardValue;
+        this.addToTableDisplay();
+        game.currentPlayer.displayHand();
         game.switchPlayer();
       } else if(this.tableScore + card.cardValue === 31){
         this.tableScore = 0;
@@ -80,7 +82,6 @@ Game.prototype.toTable = function(card){
       }
     }
   }
-
 };
 //Clears table Score
 Game.prototype.clearTable = function(){
@@ -174,19 +175,31 @@ Deck.prototype.turnOver = function(){
 /* UI LOGIC */
 
 
+Game.prototype.addToTableDisplay = function() {
+  var target = this;
+  var lastCardIndex = target.table.length - 1;
+  $("#table").append("<img src="+target.table[lastCardIndex].cardImage+">");
+
+}
+
 Player.prototype.displayHand = function() {
   var target = this;
 
   //Clear card divs
   $("#"+target.userName+" div").each(function(){
+    $(this).removeClass("stackVert");
     $(this).empty()
   });
 
   //Display each card in hand
   for (var i=0; i<target.hand.length; i++) {
-    $("#"+target.userName+"card"+i).append("<img class='card' src="+target.hand[i].cardImage+">");
+    if (target.hand[i].played === false) {
+      $("#"+target.userName+"card"+i).append("<img src="+target.hand[i].cardImage+">");
+      $("#"+target.userName+"card"+i).addClass("stackVert");
+    }
   }
 }
+
 
 
 

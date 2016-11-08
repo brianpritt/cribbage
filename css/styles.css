@@ -24,7 +24,7 @@ img {
 body {
   background-color: green;
 }
-#player1 div {
+.stackVert {
   margin-bottom: -80px;
 }
 #player1 button {
@@ -32,9 +32,6 @@ body {
 }
 #player1 input {
   vertical-align: 37px;
-}
-#player2 div {
-  margin-bottom: -80px;
 }
 #player2 button {
   margin-top: 85px;
