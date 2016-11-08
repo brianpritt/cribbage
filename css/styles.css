@@ -1,6 +1,10 @@
 #gameField, #player1, #player2 {
   display: none;
 }
+#startGame{
+  display:block;
+  margin: 0 auto;
+}
 #gameField button{
   margin: 10px 0px;
 }
