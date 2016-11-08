@@ -194,6 +194,7 @@ Player.prototype.cribCheckbox = function() {
       game.toCrib(target.hand[card]);
       target.displayHand();
     })
+      game.switchPlayer();
   });
 }
 
@@ -222,9 +223,9 @@ $(document).ready(function(){
     game.newGame(2);
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
-    game.currentPlayer=game.players[1];
     game.players[1].displayHand();
     game.players[1].cribCheckbox();
+
   });
 
 // $(".discard").click(function(){
