@@ -27,7 +27,8 @@ function Card (suit, rank, cardValue) {
 //Player Constructor
 function Player (userName){
   this.userName = userName;
-  this.score = 0;
+  this.totalScore = 0;
+  this.turnScore = 0;
   this.hand = [];
 }
 
@@ -39,7 +40,7 @@ Game.prototype.newGame = function(numberOfPlayers) {
   this.deck.create();
   this.deck.shuffleDeck();
 
-  for (var i = 0; i<numberOfPlayers; i=i+1){
+  for (var i = 0; i < numberOfPlayers; i = i + 1){
     var player = new Player("player" + (i +1));
     this.players.push(player);
   }
@@ -56,12 +57,15 @@ Game.prototype.toCrib = function(card){
     }
   }
 }
-
+//Takes value of card and adds it to running table score.
 Game.prototype.toTable = function(card){
+  //Finds card that is clicked on in players hand.
   for (i = 0; i <this.currentPlayer.hand.length; i++){
+    //checks to see if the card has been played or not.
     if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
+      //checks score and allows play for card that doesn't exceed table score of 31.
       if(this.tableScore + card.cardValue <= 31){
-        this.table.push(this.currentPlayer.hand[i])
+        this.table.push(this.currentPlayer.hand[i]);
         card.played = true;
         this.tableScore += card.cardValue;
       } else{
@@ -69,13 +73,20 @@ Game.prototype.toTable = function(card){
       }
     }
   }
+};
+//Clears table Score
+Game.prototype.clearTable = function(){
+  this.tableScore = 0;
 }
+
+//Switches player when turn is over
 Game.prototype.switchPlayer = function(){
-  // // if(this.currentPlayer.userName === this.players[0].userName){
-  // //   this.currentPlayer = this.players[1];
-  // // } else{
-  // //   this.currentPlayer = this.players[0];
-  // // }
+  //checks for current player and switches to other player.
+  if(this.currentPlayer.userName === this.players[0].userName){
+    this.currentPlayer = this.players[1];
+  } else{
+    this.currentPlayer = this.players[0];
+  }
   // for (i = 0; i < this.players.length; i++){
   //   if (this.currentPlayer.userName === this.players[i].userName)
   //   {
@@ -125,8 +136,8 @@ Deck.prototype.create = function () {
 };
 
 Deck.prototype.deal = function(players) {
-  for(i=0; i<players.length; i++){
-    for(j=0; j<=5; j++){
+  for(i = 0; i < players.length; i++){
+    for(j = 0; j <= 5; j++){
       var card = this.cards.pop();
       players[i].hand.push(card);
     }
@@ -141,6 +152,10 @@ Deck.prototype.turnOver = function(){
 
 ////UI Logic below here
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3c3c5d752802762ab35a8bbc9066cf7712c0812c
 Player.prototype.displayHand = function() {
   var target = this;
   for (var i=0; i<target.hand.length; i++) {
@@ -166,7 +181,10 @@ Player.prototype.cribCheckbox = function() {
 }
 
 
+//Global Variable
 var game = new Game();
+//
+
 $(document).ready(function(){
 
   $("#startGame").click(function(){
