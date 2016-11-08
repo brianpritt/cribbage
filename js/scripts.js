@@ -152,14 +152,22 @@ Deck.prototype.turnOver = function(){
 
 ////UI Logic below here
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 3c3c5d752802762ab35a8bbc9066cf7712c0812c
 Player.prototype.displayHand = function() {
   var target = this;
-  $("#"+target.userName+" .hand").html("<ul>");
   for (var i=0; i<target.hand.length; i++) {
-    $("#"+target.userName+" .hand").append("<li class='card'>"+target.hand[i].rank + " of " + target.hand[i].suit + " <input name="+target.userName+" type='checkbox' value='"+i+"'></input></li>");
+    $("#"+target.userName+"card"+i).append("<img class='card' src=img/"+target.hand[i].rank + target.hand[i].suit + ".png>");
   }
-  $("#"+target.userName+" .hand").append("</ul><button class='btn btn-primary btn-xs discard"+ target.userName +"'>Discard to Crib</button>");
+}
+Player.prototype.cribCheckbox = function() {
+  var target = this;
+  for (var i=0; i<target.hand.length; i++) {
+    $("#"+target.userName+"card"+i).append("<input name="+target.userName+" type='checkbox' value='"+i+"'></input>");
+  }
+  $("#"+target.userName).append("<button class='btn btn-primary btn-xs discard"+ target.userName +"'>Discard to Crib</button>");
 
   $(".discard"+target.userName).last().click(function(){
     debugger;
@@ -188,8 +196,10 @@ $(document).ready(function(){
 
     game.newGame(2);
     game.players[0].displayHand();
+    game.players[0].cribCheckbox();
     game.currentPlayer=game.players[1];
     game.players[1].displayHand();
+    game.players[1].cribCheckbox();
     debugger;
   });
 

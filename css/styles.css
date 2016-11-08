@@ -6,3 +6,9 @@
   background-color: lightgray;
   border: 1px solid gray;
 }
+img {
+  height: 150px;
+}
+body {
+  background-color: green;
+}
