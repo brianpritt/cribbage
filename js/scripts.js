@@ -69,6 +69,23 @@ Game.prototype.toTable = function(card){
     }
   }
 }
+Game.prototype.switchPlayer = function(){
+  // // if(this.currentPlayer.userName === this.players[0].userName){
+  // //   this.currentPlayer = this.players[1];
+  // // } else{
+  // //   this.currentPlayer = this.players[0];
+  // // }
+  // for (i = 0; i < this.players.length; i++){
+  //   if (this.currentPlayer.userName === this.players[i].userName)
+  //   {
+  //     var value = i+1;
+  //     this.currentPlayer = this.players[value];
+  //   }
+  //   // } else {
+  //   //   this.currentPlayer = this.players[0]
+  //   // }
+  // }
+};
 //Deck Methods
 
 Deck.prototype.shuffleDeck = function(){
