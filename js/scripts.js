@@ -7,6 +7,8 @@ function Game () {
   this.deck;
   this.currentPlayer;
   this.dealerCrib;
+  this.table = [];
+  this.tableScore = 0;
 }
 
 //Deck Constructor
@@ -51,13 +53,22 @@ Game.prototype.toCrib = function(card){
       this.crib.push(this.currentPlayer.hand[i])
       this.currentPlayer.hand.splice(i,1);
     }
-
   }
 }
 
-
-
-
+Game.prototype.toTable = function(card){
+  for (i = 0; i <this.currentPlayer.hand.length; i++){
+    if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
+      if(this.tableScore + card.cardValue <= 31){
+        this.table.push(this.currentPlayer.hand[i])
+        card.played = true;
+        this.tableScore += card.cardValue;
+      } else{
+        alert("GO");
+      }
+    }
+  }
+}
 //Deck Methods
 
 Deck.prototype.shuffleDeck = function(){
@@ -104,6 +115,11 @@ Deck.prototype.deal = function(players) {
   }
 };
 
+Deck.prototype.turnOver = function(){
+  var topCard = this.cards[0];
+  return topCard;
+}
+
 
 ////UI Logic below here
 
@@ -132,7 +148,6 @@ $(document).ready(function(){
     game.deck.deal(game.players);
     game.players[0].displayHand();
     game.players[1].displayHand();
-
-
+    debugger;
   });
 });
