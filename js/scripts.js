@@ -192,6 +192,7 @@ Player.prototype.cribCheckbox = function() {
       game.toCrib(target.hand[card]);
       target.displayHand();
     })
+      game.switchPlayer();
   });
 }
 
@@ -227,10 +228,20 @@ $(document).ready(function(){
     game.newGame(2);
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
-    game.currentPlayer=game.players[1];
     game.players[1].displayHand();
     game.players[1].cribCheckbox();
+
+      $(".cards").click(function(){
+        if(game.crib.length === 4){
+          var selectedCard = parseInt($(this).attr("value"));
+          console.log(selectedCard);
+          var x = game.currentPlayer.hand[selectedCard];
+          console.log(x);
+
+        };
+      });
   });
+
 
 // $(".discard").click(function(){
 //   $("input:checkbox[name=player1]:checked").each(function(){
