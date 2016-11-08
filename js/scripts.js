@@ -118,7 +118,7 @@ Deck.prototype.shuffleDeck = function(){
   return this.cards;
 };
 
-//Create a new 52-card deck.
+//Create a new 52-card deck of card objects with values and linked card images
 Deck.prototype.create = function () {
   var thisDeck = this;
   var ranks = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
@@ -138,6 +138,7 @@ Deck.prototype.create = function () {
   }
 };
 
+//Deal 6 cards to each player
 Deck.prototype.deal = function(players) {
   for(i = 0; i < players.length; i++){
     for(j = 0; j <= 5; j++){
@@ -147,13 +148,14 @@ Deck.prototype.deal = function(players) {
   }
 };
 
+//Return the first card in the deck
 Deck.prototype.turnOver = function(){
   var topCard = this.cards[0];
   return topCard;
 }
 
 
-////UI Logic below here
+/* UI LOGIC */
 
 
 Player.prototype.displayHand = function() {
@@ -170,7 +172,7 @@ Player.prototype.displayHand = function() {
   }
 }
 
-// img/"+target.hand[i].rank + target.hand[i].suit + ".png>"
+
 
 Player.prototype.cribCheckbox = function() {
   var target = this;
