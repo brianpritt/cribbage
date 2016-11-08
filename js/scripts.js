@@ -7,6 +7,8 @@ function Game () {
   this.deck;
   this.currentPlayer;
   this.dealerCrib;
+  this.table = [];
+  this.tableScore = 0;
 }
 
 //Deck Constructor
@@ -52,13 +54,39 @@ Game.prototype.toCrib = function(card){
       this.crib.push(this.currentPlayer.hand[i])
       this.currentPlayer.hand.splice(i,1);
     }
-
   }
 }
 
-
-
-
+Game.prototype.toTable = function(card){
+  for (i = 0; i <this.currentPlayer.hand.length; i++){
+    if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
+      if(this.tableScore + card.cardValue <= 31){
+        this.table.push(this.currentPlayer.hand[i])
+        card.played = true;
+        this.tableScore += card.cardValue;
+      } else{
+        alert("GO");
+      }
+    }
+  }
+}
+Game.prototype.switchPlayer = function(){
+  // // if(this.currentPlayer.userName === this.players[0].userName){
+  // //   this.currentPlayer = this.players[1];
+  // // } else{
+  // //   this.currentPlayer = this.players[0];
+  // // }
+  // for (i = 0; i < this.players.length; i++){
+  //   if (this.currentPlayer.userName === this.players[i].userName)
+  //   {
+  //     var value = i+1;
+  //     this.currentPlayer = this.players[value];
+  //   }
+  //   // } else {
+  //   //   this.currentPlayer = this.players[0]
+  //   // }
+  // }
+};
 //Deck Methods
 
 Deck.prototype.shuffleDeck = function(){
@@ -105,6 +133,11 @@ Deck.prototype.deal = function(players) {
   }
 };
 
+Deck.prototype.turnOver = function(){
+  var topCard = this.cards[0];
+  return topCard;
+}
+
 
 ////UI Logic below here
 
@@ -144,8 +177,7 @@ $(document).ready(function(){
     game.players[0].displayHand();
     game.currentPlayer=game.players[1];
     game.players[1].displayHand();
-
-
+    debugger;
   });
 
 // $(".discard").click(function(){
