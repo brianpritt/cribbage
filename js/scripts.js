@@ -32,6 +32,7 @@ function Player (userName){
   this.totalScore = 0;
   this.turnScore = 0;
   this.hand = [];
+  this.goCount = 0;
 }
 
 //Game Methods
@@ -66,22 +67,36 @@ Game.prototype.toTable = function(card){
     //checks to see if the card has been played or not.
     if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
       //checks score and allows play for card that doesn't exceed table score of 31.
-      if(this.tableScore + card.cardValue <= 31){
+      if(this.tableScore + card.cardValue < 31){
         this.table.push(this.currentPlayer.hand[i]);
         card.played = true;
         this.tableScore += card.cardValue;
+        game.switchPlayer();
+      } else if(this.tableScore + card.cardValue === 31){
+        this.tableScore = 0;
+        alert(this.currentPlayer.userName + " has won.");
       } else{
-        alert("GO");
+        alert("This card is not playable")
       }
     }
   }
-  if()
+
 };
 //Clears table Score
 Game.prototype.clearTable = function(){
   this.tableScore = 0;
 }
-
+Game.prototype.goPlayer = function(){
+  //debugger
+  this.currentPlayer.goCount +=1;
+  game.switchPlayer();
+  if ((this.players[0].goCount == 1) && (this.players[1].goCount == 1)){
+    this.clearTable();
+    this.players[0].goCount = 0;
+    this.players[1].goCount = 0;
+    //add scoring stuff here maybs//
+  }
+}
 //Switches player when turn is over
 Game.prototype.switchPlayer = function(){
   //checks for current player and switches to other player.
@@ -239,8 +254,12 @@ $(document).ready(function(){
           game.toTable(clickedCard);
           console.log(clickedCard);
           console.log(game.tableScore);
-          game.switchPlayer();
+          console.log(game.currentPlayer);
         };
+      });
+      $(".goBtn").click(function(){
+        game.goPlayer();
+
       });
   });
 
