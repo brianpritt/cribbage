@@ -17,13 +17,15 @@ function Deck () {
 }
 
 //Card Contructor
-function Card (suit, rank, cardValue) {
+function Card (suit, rank, cardValue, cardImage) {
   //(string, string, int) -> object
   this.suit = suit;
   this.rank = rank;
   this.cardValue = cardValue;
+  this.cardImage = cardImage;
   this.played = false;
 }
+
 //Player Constructor
 function Player (userName){
   this.userName = userName;
@@ -129,7 +131,8 @@ Deck.prototype.create = function () {
       } else {
         value = j+1;
       }
-      card = new Card(suits[i], ranks[j], value)
+      var cardImg = "img/"+ranks[j]+suits[i]+".png";
+      card = new Card(suits[i], ranks[j], value, cardImg)
       thisDeck.cards.push(card);
     }
   }
@@ -163,10 +166,11 @@ Player.prototype.displayHand = function() {
 
   //Display each card in hand
   for (var i=0; i<target.hand.length; i++) {
-    $("#"+target.userName+"card"+i).append("<img class='card' src=img/"+target.hand[i].rank + target.hand[i].suit + ".png>");
+    $("#"+target.userName+"card"+i).append("<img class='card' src="+target.hand[i].cardImage+">");
   }
 }
 
+// img/"+target.hand[i].rank + target.hand[i].suit + ".png>"
 
 Player.prototype.cribCheckbox = function() {
   var target = this;
@@ -180,9 +184,11 @@ Player.prototype.cribCheckbox = function() {
 
   //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
+
     //debugger;
     $($("input:checkbox[name="+target.userName+"]:checked").get().reverse()).each(function(){
       //debugger;
+
       var box = this;
       var card = parseInt($(box).val());
       game.toCrib(target.hand[card]);
@@ -206,13 +212,19 @@ $(document).ready(function(){
     $("#gameField").show();
 
 
+    $("#deck").click(function(){
+      var turntCard = game.deck.turnOver();
+      if (game.crib.length === 4) {
+        $("#turnt").html("<img src="+turntCard.cardImage+">");
+      }
+    });
+
     game.newGame(2);
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
     game.currentPlayer=game.players[1];
     game.players[1].displayHand();
     game.players[1].cribCheckbox();
-    debugger;
   });
 
 // $(".discard").click(function(){

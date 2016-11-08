@@ -1,6 +1,9 @@
 #gameField {
   display: none;
 }
+#playArea img{
+  margin-right: -90px;
+}
 
 .select {
   background-color: lightgray;
