@@ -52,7 +52,7 @@ Game.prototype.newGame = function(numberOfPlayers) {
 
 //Move cards from players hand to game.crib
 Game.prototype.toCrib = function(card){
-  for (i = this; i <this.currentPlayer.hand.length; i++){
+  for (i = this.currentPlayer.hand.length-1; i >=0; i--){
     if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
       this.crib.push(this.currentPlayer.hand[i])
       this.currentPlayer.hand.splice(i,1);
@@ -184,7 +184,11 @@ Player.prototype.cribCheckbox = function() {
 
   //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
-    $("input:checkbox[name="+target.userName+"]:checked").each(function(){
+
+    //debugger;
+    $($("input:checkbox[name="+target.userName+"]:checked").get().reverse()).each(function(){
+      //debugger;
+
       var box = this;
       var card = parseInt($(box).val());
       game.toCrib(target.hand[card]);
