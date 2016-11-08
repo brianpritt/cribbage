@@ -50,7 +50,7 @@ Game.prototype.newGame = function(numberOfPlayers) {
 
 //Move cards from players hand to game.crib
 Game.prototype.toCrib = function(card){
-  for (i = 0; i <this.currentPlayer.hand.length; i++){
+  for (i = this; i <this.currentPlayer.hand.length; i++){
     if ((this.currentPlayer.hand[i] === card) && (card.played === false)){
       this.crib.push(this.currentPlayer.hand[i])
       this.currentPlayer.hand.splice(i,1);
@@ -179,6 +179,7 @@ Player.prototype.cribCheckbox = function() {
     })
   });
 }
+
 
 
 //Global Variable
