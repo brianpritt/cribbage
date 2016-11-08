@@ -41,6 +41,7 @@ Game.prototype.newGame = function(numberOfPlayers) {
     var player = new Player("player" + (i +1));
     this.players.push(player);
   }
+  this.deck.deal(this.players);
   this.currentPlayer = this.players[0];
 }
 
@@ -107,32 +108,52 @@ Deck.prototype.deal = function(players) {
 
 ////UI Logic below here
 
-Player.prototype.displayHand = function() {
-  $("#"+this.userName+" .hand").html("<ul>");
-  for (var i=0; i<this.hand.length; i++) {
-    $("#"+this.userName+" .hand").append("<li class='card'>"+this.hand[i].rank + " of " + this.hand[i].suit + "</li>");
-  }
-  $("#"+this.userName+" .hand").append("</ul>");
+var discardButton = "<button class='btn btn-primary btn-xs discard"+ this.userName +"'>Discard to Crib</button>";
 
+Player.prototype.displayHand = function() {
+  var target = this;
+  $("#"+target.userName+" .hand").html("<ul>");
+  for (var i=0; i<target.hand.length; i++) {
+    $("#"+target.userName+" .hand").append("<li class='card'>"+target.hand[i].rank + " of " + target.hand[i].suit + " <input name="+target.userName+" type='checkbox' value='"+i+"'></input></li>");
+  }
+  $("#"+target.userName+" .hand").append("</ul><button class='btn btn-primary btn-xs discard"+ target.userName +"'>Discard to Crib</button>");
+
+  $(".discard"+target.userName).last().click(function(){
+    debugger;
+    $("input:checkbox[name="+target.userName+"]:checked").each(function(){
+      debugger;
+      var box = this;
+      var card = parseInt($(box).val());
+      game.toCrib(target.hand[card]);
+    })
+  });
 }
 
 
+var game = new Game();
 $(document).ready(function(){
-
-
 
   $("#startGame").click(function(){
     // event.preventDefault();
+
     $("#gameStart").hide();
     $("#gameField").show();
 
-    var game = new Game();
-    game.newGame(2);
 
-    game.deck.deal(game.players);
+    game.newGame(2);
     game.players[0].displayHand();
+    game.currentPlayer=game.players[1];
     game.players[1].displayHand();
 
 
   });
+
+// $(".discard").click(function(){
+//   $("input:checkbox[name=player1]:checked").each(function(){
+//     var card = this.val();
+//     game.toCrib(game.players[0].hand[card]);
+//   })
+// });
+
+
 });

@@ -1,6 +1,8 @@
-p{
-  display: none;
-}
 #gameField {
   display: none;
+}
+
+.select {
+  background-color: lightgray;
+  border: 1px solid gray;
 }
