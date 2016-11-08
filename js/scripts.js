@@ -186,11 +186,7 @@ Player.prototype.cribCheckbox = function() {
 
   //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
-
-    //debugger;
     $($("input:checkbox[name="+target.userName+"]:checked").get().reverse()).each(function(){
-      //debugger;
-
       var box = this;
       var card = parseInt($(box).val());
       game.toCrib(target.hand[card]);
@@ -208,19 +204,26 @@ var game = new Game();
 
 $(document).ready(function(){
 
+  $("#player1ShowHide").click(function(){
+    $("#player1").toggle();
+  });
+  $("#player2ShowHide").click(function(){
+    $("#player2").toggle();
+  });
+
+  $("#deck").click(function(){
+    var turntCard = game.deck.turnOver();
+    if (game.crib.length === 4) {
+      $("#turnt").html("<img src="+turntCard.cardImage+">");
+    }
+  });
+
   $("#startGame").click(function(){
     // event.preventDefault();
 
     $("#gameStart").hide();
     $("#gameField").show();
 
-
-    $("#deck").click(function(){
-      var turntCard = game.deck.turnOver();
-      if (game.crib.length === 4) {
-        $("#turnt").html("<img src="+turntCard.cardImage+">");
-      }
-    });
 
     game.newGame(2);
     game.players[0].displayHand();
