@@ -1,10 +1,15 @@
-#gameField {
+#gameField, #player1, #player2 {
   display: none;
+}
+#gameField button{
+  margin: 10px 0px;
 }
 #playArea img{
   margin-right: -90px;
 }
-
+.container {
+  padding: 20px;
+}
 .select {
   background-color: lightgray;
   border: 1px solid gray;
@@ -14,4 +19,22 @@ img {
 }
 body {
   background-color: green;
+}
+#player1 div {
+  margin-bottom: -80px;
+}
+#player1 button {
+  margin-top: 85px;
+}
+#player1 input {
+  vertical-align: 37px;
+}
+#player2 div {
+  margin-bottom: -80px;
+}
+#player2 button {
+  margin-top: 85px;
+}
+#player2 input {
+  vertical-align: 37px;
 }
