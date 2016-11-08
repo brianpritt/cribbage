@@ -152,23 +152,33 @@ Deck.prototype.turnOver = function(){
 
 ////UI Logic below here
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 3c3c5d752802762ab35a8bbc9066cf7712c0812c
 Player.prototype.displayHand = function() {
   var target = this;
+
+  //Clear card divs
+  $("#"+target.userName+" div").each(function(){
+    $(this).empty()
+  });
+
+  //Display each card in hand
   for (var i=0; i<target.hand.length; i++) {
     $("#"+target.userName+"card"+i).append("<img class='card' src=img/"+target.hand[i].rank + target.hand[i].suit + ".png>");
   }
 }
+
+
 Player.prototype.cribCheckbox = function() {
   var target = this;
+
+  //Add a checkbox beside each card
   for (var i=0; i<target.hand.length; i++) {
     $("#"+target.userName+"card"+i).append("<input name="+target.userName+" type='checkbox' value='"+i+"'></input>");
   }
-  $("#"+target.userName).append("<button class='btn btn-primary btn-xs discard"+ target.userName +"'>Discard to Crib</button>");
+  //Add a button for discard
+  $("#"+target.userName).append("<div><button class='btn btn-primary btn-xs discard"+ target.userName +"'>Discard to Crib</button></div>");
 
+  //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
     debugger;
     $("input:checkbox[name="+target.userName+"]:checked").each(function(){
@@ -176,6 +186,7 @@ Player.prototype.cribCheckbox = function() {
       var box = this;
       var card = parseInt($(box).val());
       game.toCrib(target.hand[card]);
+      target.displayHand();
     })
   });
 }
