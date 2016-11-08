@@ -168,7 +168,9 @@ Player.prototype.displayHand = function() {
 
   //Display each card in hand
   for (var i=0; i<target.hand.length; i++) {
-    $("#"+target.userName+"card"+i).append("<img class='card' src="+target.hand[i].cardImage+">");
+    if (target.hand[i].played === false) {
+      $("#"+target.userName+"card"+i).append("<img src="+target.hand[i].cardImage+">");
+    }
   }
 }
 
