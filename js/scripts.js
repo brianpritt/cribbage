@@ -75,6 +75,7 @@ Game.prototype.toTable = function(card){
       }
     }
   }
+  if()
 };
 //Clears table Score
 Game.prototype.clearTable = function(){
@@ -236,10 +237,11 @@ $(document).ready(function(){
       $(".cards").click(function(){
         if(game.crib.length === 4){
           var selectedCard = parseInt($(this).attr("value"));
-          console.log(selectedCard);
-          var x = game.currentPlayer.hand[selectedCard];
-          console.log(x);
-
+          var clickedCard = game.currentPlayer.hand[selectedCard];
+          game.toTable(clickedCard);
+          console.log(clickedCard);
+          console.log(game.tableScore);
+          game.switchPlayer();
         };
       });
   });
