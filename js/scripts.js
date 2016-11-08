@@ -228,7 +228,17 @@ $(document).ready(function(){
     game.players[1].displayHand();
     game.players[1].cribCheckbox();
 
+      $(".cards").click(function(){
+        if(game.crib.length === 4){
+          var selectedCard = parseInt($(this).attr("value"));
+          console.log(selectedCard);
+          var x = game.currentPlayer.hand[selectedCard];
+          console.log(x);
+
+        };
+      });
   });
+
 
 // $(".discard").click(function(){
 //   $("input:checkbox[name=player1]:checked").each(function(){
