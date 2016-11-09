@@ -81,6 +81,7 @@ Game.prototype.toTable = function(card){
         this.currentPlayer.displayHand();
         this.clearTable();
         alert(this.currentPlayer.userName + " got 31! One point for 31, one point for last card.");
+        this.switchPlayer();
       } else{
         alert("This card is not playable");
       }
