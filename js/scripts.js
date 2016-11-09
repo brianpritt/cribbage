@@ -240,9 +240,12 @@ Game.prototype.roundOver = function(){
     }
     this.clearTable();
     $("#player1, #player2").show();
-  }
+    $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
+    
+};
 };
 
+Game.prototype.addClickability = function(){}
 
 Game.prototype.addToTableDisplay = function() {
   var target = this;
