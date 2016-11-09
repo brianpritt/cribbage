@@ -20,6 +20,8 @@
 }
 img {
   height: 150px;
+  border: 1px solid black;
+  border-radius: 7px;
 }
 body {
   background-color: green;
@@ -48,4 +50,7 @@ body {
 }
 #player1Highlight {
   width: 194px;
+}
+#cribDisplay img{
+  display:none;
 }
