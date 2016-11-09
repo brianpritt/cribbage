@@ -39,3 +39,6 @@ body {
 #player2 input {
   vertical-align: 37px;
 }
+.highlightCurrent {
+  border: 10px solid red;
+}
