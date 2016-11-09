@@ -235,7 +235,7 @@ Game.prototype.roundOver = function(){
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
-    $("#player1,#player2 ").children().removeClass("cards");
+    $("#player1, #player2").children().removeClass("cards");
 
     $("#newGame").show();
 
@@ -335,7 +335,7 @@ $(document).ready(function(){
       $("#turnt").html("<img src="+turntCard.cardImage+">");
     }
   });
-  var crick;
+
   $("#startGame").click(function(){
     $("#gameStart").hide();
     $("#gameField").show();
@@ -354,7 +354,7 @@ $(document).ready(function(){
         game.roundOver();
       };
     });
-    
+
     $(".goBtn").click(function(){
       game.goPlayer();
       $("#tableScore").text("Current Table Score: " + game.tableScore);
