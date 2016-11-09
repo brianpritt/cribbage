@@ -75,8 +75,12 @@ Game.prototype.toTable = function(card){
         this.currentPlayer.displayHand();
         this.switchPlayer();
       } else if(this.tableScore + card.cardValue === 31){
-        this.tableScore = 0;
-        alert(this.currentPlayer.userName + " has won.");
+        card.played = true;
+        this.tableScore += card.cardValue;
+        this.addToTableDisplay();
+        this.currentPlayer.displayHand();
+        this.clearTable();
+        alert(this.currentPlayer.userName + " got 31! One point for 31, one point for last card.");
       } else{
         alert("This card is not playable");
       }
@@ -86,7 +90,7 @@ Game.prototype.toTable = function(card){
 //Clears table Score
 Game.prototype.clearTable = function(){
   this.tableScore = 0;
-
+  this.clearTableUI();
 }
 Game.prototype.goPlayer = function(){
   //debugger
@@ -174,14 +178,29 @@ Deck.prototype.turnOver = function(){
 }
 
 
-/* UI LOGIC */
+//////////////////* UI LOGIC *//////////////////
 
 
 Game.prototype.addToTableDisplay = function() {
   var target = this;
   var lastCardIndex = target.table.length - 1;
   $("#table").append("<img src="+target.table[lastCardIndex].cardImage+">");
+}
 
+Game.prototype.switchPlayerUI = function(){
+  //checks for current player and switches to other player.
+  if(this.currentPlayer.userName === this.players[0].userName){
+    $("#player2Highlight").removeClass("highlightCurrent");
+    $("#player1Highlight").addClass("highlightCurrent");
+  } else{
+    $("#player1Highlight").removeClass("highlightCurrent");
+    $("#player2Highlight").addClass("highlightCurrent");
+  }
+  $("#player1, #player2").hide();
+}
+
+Game.prototype.clearTableUI = function() {
+  $("#table").empty();
 }
 
 Player.prototype.displayHand = function() {
@@ -190,7 +209,7 @@ Player.prototype.displayHand = function() {
   //Clear card divs
   $("#"+target.userName+" div").each(function(){
     $(this).removeClass("stackVert");
-    $(this).empty()
+    $(this).empty();
   });
 
   //Display each card in hand
@@ -234,17 +253,6 @@ Player.prototype.cribCheckbox = function() {
   });
 }
 
-Game.prototype.switchPlayerUI = function(){
-  //checks for current player and switches to other player.
-  if(this.currentPlayer.userName === this.players[0].userName){
-    $("#player2Highlight").removeClass("highlightCurrent");
-    $("#player1Highlight").addClass("highlightCurrent");
-  } else{
-    $("#player1Highlight").removeClass("highlightCurrent");
-    $("#player2Highlight").addClass("highlightCurrent");
-  }
-  $("#player1, #player2").hide();
-}
 
 //Global Variable
 var game = new Game();
