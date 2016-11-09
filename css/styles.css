@@ -42,7 +42,11 @@ body {
   vertical-align: 37px;
 }
 .highlightCurrent {
-  border: 10px solid red;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 650px;
+}
+.highlightCurrent h4 {
+  color: white;
 }
 #cribDisplay img{
   display:none;
