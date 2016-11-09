@@ -235,7 +235,7 @@ Game.prototype.roundOver = function(){
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
-    $("div.cards").off("click");
+    $(".cards").off("click");
     $("#newGame").show();
 
 };
@@ -353,24 +353,37 @@ $(document).ready(function(){
     game.players[0].cribCheckbox();
     game.players[1].displayHand();
 
-      $(".cards").click(function(){
-        if(game.crib.length === 4){
-          var selectedCard = parseInt($(this).attr("value"));
-          var clickedCard = game.currentPlayer.hand[selectedCard];
-          game.toTable(clickedCard);
-          $("#tableScore").text("Current Table  Score: " + game.tableScore);
-          game.roundOver();
-        };
-      });
-      $(".goBtn").click(function(){
-        game.goPlayer();
-        $("#tableScore").text("Current Table Score: " + game.tableScore);
-      });
   });
+
+
+  $(".cards").click(function(){
+    if(game.crib.length === 4){
+      var selectedCard = parseInt($(this).attr("value"));
+      var clickedCard = game.currentPlayer.hand[selectedCard];
+      game.toTable(clickedCard);
+      $("#tableScore").text("Current Table  Score: " + game.tableScore);
+      game.roundOver();
+    };
+  });
+
+  $(".goBtn").click(function(){
+    game.goPlayer();
+    $("#tableScore").text("Current Table Score: " + game.tableScore);
+  });
+
   $("#newGame").click(function(){
     game.clearTable();
     game.newRound();
-    $("div.cards").on("click");
+    $(".cards").on("click", function(){
+      if(game.crib.length === 4){
+        var selectedCard = parseInt($(this).attr("value"));
+        var clickedCard = game.currentPlayer.hand[selectedCard];
+        game.toTable(clickedCard);
+        $("#tableScore").text("Current Table  Score: " + game.tableScore);
+        game.roundOver();
+      };
 
   });
+});
+
 });
