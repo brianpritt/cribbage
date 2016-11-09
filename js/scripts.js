@@ -354,11 +354,13 @@ $(document).ready(function(){
         game.roundOver();
       };
     });
+    
     $(".goBtn").click(function(){
       game.goPlayer();
       $("#tableScore").text("Current Table Score: " + game.tableScore);
     });
   });
+
   $("#newGame").click(function(){
     game.clearTable();
     game.newRound();
