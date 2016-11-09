@@ -179,6 +179,35 @@ Deck.prototype.turnOver = function(){
 
 
 //////////////////* UI LOGIC *//////////////////
+Game.prototype.roundOver = function(){
+
+  var playedCount = 0;
+  for(i = 0; i < this.players.length; i++){
+    for(j = 0; j < this.players[i].hand.length; j++){
+      if(this.players[i].hand[j].played === true)
+      playedCount += 1;
+    }
+  }
+  if (playedCount === 8){
+    //show crib
+
+    $("#cribDisplay").hide()
+    $("#cribShow").show();
+    for (var i =0; i < this.crib.length; i++){
+      $("#cribShow").append("<img src="+this.crib[i].cardImage+">")
+    }
+    //show player cards
+    for(i = 0; i < this.players.length; i++){
+      for(j = 0; j < this.players[i].hand.length; j++){
+        this.players[i].hand[j].played = false;
+        console.log(this.players[i].hand[j].played);
+      }
+      this.players[i].displayHand();
+    }
+    this.clearTable();
+    $("#player1, #player2").show();
+  }
+};
 
 
 Game.prototype.addToTableDisplay = function() {
@@ -215,6 +244,7 @@ Player.prototype.displayHand = function() {
   //Display each card in hand
   for (var i=0; i<target.hand.length; i++) {
     if (target.hand[i].played === false) {
+
       $("#"+target.userName+"card"+i).append("<img src="+target.hand[i].cardImage+">");
       $("#"+target.userName+"card"+i).addClass("stackVert");
     }
@@ -275,18 +305,13 @@ $(document).ready(function(){
   });
 
   $("#startGame").click(function(){
-    // event.preventDefault();
-
     $("#gameStart").hide();
     $("#gameField").show();
-
 
     game.newGame(2);
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
     game.players[1].displayHand();
-
-
 
       $(".cards").click(function(){
         if(game.crib.length === 4){
@@ -294,22 +319,12 @@ $(document).ready(function(){
           var clickedCard = game.currentPlayer.hand[selectedCard];
           game.toTable(clickedCard);
           $("#tableScore").text("Current Table  Score: " + game.tableScore);
-          console.log(clickedCard);
-          console.log(game.tableScore);
-          console.log(game.currentPlayer);
+          game.roundOver();
         };
       });
       $(".goBtn").click(function(){
         game.goPlayer();
-        $("#tableScore").text("current Table Score: " + game.tableScore);
+        $("#tableScore").text("Current Table Score: " + game.tableScore);
       });
   });
-// $(".discard").click(function(){
-//   $("input:checkbox[name=player1]:checked").each(function(){
-//     var card = this.val();
-//     game.toCrib(game.players[0].hand[card]);
-//   })
-// });
-
-
 });
