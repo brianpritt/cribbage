@@ -86,6 +86,7 @@ Game.prototype.toTable = function(card){
 //Clears table Score
 Game.prototype.clearTable = function(){
   this.tableScore = 0;
+
 }
 Game.prototype.goPlayer = function(){
   //debugger
@@ -226,7 +227,7 @@ Player.prototype.cribCheckbox = function() {
       game.switchPlayer();
       if(game.crib.length < 4){
         game.currentPlayer.cribCheckbox();
-      };
+      } 
   });
 }
 
@@ -275,11 +276,13 @@ $(document).ready(function(){
     game.players[1].displayHand();
 
 
+
       $(".cards").click(function(){
         if(game.crib.length === 4){
           var selectedCard = parseInt($(this).attr("value"));
           var clickedCard = game.currentPlayer.hand[selectedCard];
           game.toTable(clickedCard);
+          $("#tableScore").text("current Table Score: " + game.tableScore);
           console.log(clickedCard);
           console.log(game.tableScore);
           console.log(game.currentPlayer);
@@ -287,11 +290,9 @@ $(document).ready(function(){
       });
       $(".goBtn").click(function(){
         game.goPlayer();
-
+        $("#tableScore").text("current Table Score: " + game.tableScore);
       });
   });
-
-
 // $(".discard").click(function(){
 //   $("input:checkbox[name=player1]:checked").each(function(){
 //     var card = this.val();
