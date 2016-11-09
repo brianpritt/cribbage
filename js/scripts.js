@@ -318,6 +318,10 @@ Player.prototype.cribCheckbox = function() {
 
 var message = function(message) {
   $("#messageCenter").text(message);
+  var clearMessage = function() {
+    $("#messageCenter").text("");
+  }
+  var timeoutID= window.setTimeout(clearMessage, 2000);
 }
 
 //Global Variable
