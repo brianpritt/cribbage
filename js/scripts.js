@@ -72,13 +72,13 @@ Game.prototype.toTable = function(card){
         card.played = true;
         this.tableScore += card.cardValue;
         this.addToTableDisplay();
-        game.currentPlayer.displayHand();
-        game.switchPlayer();
+        this.currentPlayer.displayHand();
+        this.switchPlayer();
       } else if(this.tableScore + card.cardValue === 31){
         this.tableScore = 0;
         alert(this.currentPlayer.userName + " has won.");
       } else{
-        alert("This card is not playable")
+        alert("This card is not playable");
       }
     }
   }
@@ -211,17 +211,21 @@ Player.prototype.cribCheckbox = function() {
     $("#"+target.userName+"card"+i).append("<input name="+target.userName+" type='checkbox' value='"+i+"'></input>");
   }
   //Add a button for discard
-  $("#"+target.userName).append("<div><button class='btn btn-primary btn-xs discard"+ target.userName +"'>Discard to Crib</button></div>");
+  $("#"+target.userName).append("<div><button class='btn btn-info btn-xs discard"+ target.userName +"'>Discard to Crib</button></div>");
 
   //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
     $($("input:checkbox[name="+target.userName+"]:checked").get().reverse()).each(function(){
+
       var box = this;
       var card = parseInt($(box).val());
       game.toCrib(target.hand[card]);
       target.displayHand();
     })
       game.switchPlayer();
+      if(game.crib.length < 4){
+        game.currentPlayer.cribCheckbox();
+      };
   });
 }
 
@@ -258,7 +262,7 @@ $(document).ready(function(){
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
     game.players[1].displayHand();
-    game.players[1].cribCheckbox();
+
 
       $(".cards").click(function(){
         if(game.crib.length === 4){
