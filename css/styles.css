@@ -1,34 +1,12 @@
+/*Hidden divs*/
 #gameField, #player1, #player2, #cribShow,#cribDisplay, #newGame {
   display: none;
 }
-#startGame{
-  display:block;
-  margin: 20px auto;
-}
-#gameStart {
-  color: white;
-}
 
-#gameStart p, li {
-  font-size: 16px;
-}
-
-#gameStart a {
-  color: #5bc0de;
-}
-
-#gameField button{
-  margin: 10px 0px;
-}
-#playArea img{
-  margin-right: -90px;
-}
-.container {
-  padding: 20px;
-}
-.select {
-  background-color: lightgray;
-  border: 1px solid gray;
+/*Global styles*/
+h3 {
+  text-align: center;
+  margin-bottom: 40px;
 }
 h1 {
   text-align: center;
@@ -42,20 +20,39 @@ img {
 body {
   background-color: green;
 }
+.container {
+  padding: 20px;
+}
+
+/*Intro screen*/
+.instruction-list {
+  list-style-position: inside;
+  text-indent: -2.2em;
+}
+.instruction-list li {
+  padding: 3px 0;
+}
+#startGame{
+  display:block;
+  margin: 40px auto;
+}
+#gameStart {
+  color: white;
+}
+#gameStart p, li {
+  font-size: 16px;
+}
+#gameStart a {
+  color: #5bc0de;
+}
+
+/*Play Area/Main game*/
+.select {
+  background-color: lightgray;
+  border: 1px solid gray;
+}
 .stackVert {
   margin-bottom: -80px;
-}
-#player1 button {
-  margin-top: 85px;
-}
-#player1 input {
-  vertical-align: 37px;
-}
-#player2 button {
-  margin-top: 85px;
-}
-#player2 input {
-  vertical-align: 37px;
 }
 .highlightCurrent {
   background-color: rgba(0, 0, 0, 0.2);
@@ -64,7 +61,18 @@ body {
 .highlightCurrent h4 {
   color: white;
 }
-
+#gameField button{
+  margin: 10px 0px;
+}
+#playArea img{
+  margin-right: -90px;
+}
+#player1 button, #player2 button {
+  margin-top: 85px;
+}
+#player1 input, #player2 input {
+  vertical-align: 37px;
+}
 #tableScore{
   size: 1.2em;
   color: white;
