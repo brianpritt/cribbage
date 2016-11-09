@@ -235,7 +235,7 @@ Game.prototype.roundOver = function(){
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
-    $("#player1, #player2").children().removeClass("cards");
+    $(".cards").off();
     $("#newGame").show();
 
   };
@@ -352,7 +352,6 @@ $(document).ready(function(){
       game.toTable(clickedCard);
       $("#tableScore").text("Current Table  Score: " + game.tableScore);
       game.roundOver();
-      return;
     };
   });
 
@@ -364,7 +363,15 @@ $(document).ready(function(){
   $("#newGame").click(function(){
     game.clearTable();
     game.newRound();
-    $("#player1 div, #player2 div").addClass("cards");
+    $(".cards").on("click", function(){
+      if(game.crib.length === 4){
+        var selectedCard = parseInt($(this).attr("value"));
+        var clickedCard = game.currentPlayer.hand[selectedCard];
+        game.toTable(clickedCard);
+        $("#tableScore").text("Current Table  Score: " + game.tableScore);
+        game.roundOver();
+      }
+      });
 
   });
 });
