@@ -106,6 +106,7 @@ Game.prototype.switchPlayer = function(){
   } else{
     this.currentPlayer = this.players[0];
   }
+  game.switchPlayerUI();
   // for (i = 0; i < this.players.length; i++){
   //   if (this.currentPlayer.userName === this.players[i].userName)
   //   {
@@ -229,7 +230,17 @@ Player.prototype.cribCheckbox = function() {
   });
 }
 
-
+Game.prototype.switchPlayerUI = function(){
+  //checks for current player and switches to other player.
+  if(this.currentPlayer.userName === this.players[0].userName){
+    $("#player2Highlight").removeClass("highlightCurrent");
+    $("#player1Highlight").addClass("highlightCurrent");
+  } else{
+    $("#player1Highlight").removeClass("highlightCurrent");
+    $("#player2Highlight").addClass("highlightCurrent");
+  }
+  $("#player1, #player2").hide();
+}
 
 //Global Variable
 var game = new Game();
