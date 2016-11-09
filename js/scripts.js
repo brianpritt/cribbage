@@ -77,7 +77,10 @@ Game.prototype.newRound = function () {
 
   //Switch current so dealer plays first
   this.currentPlayer = this.dealerCrib;
-  this.currentPlayer.displayHand();
+  this.players.forEach(function(player){
+    player.displayHand();
+
+  })
   this.currentPlayer.cribCheckbox();
 }
 
@@ -146,16 +149,7 @@ Game.prototype.switchPlayer = function(){
     this.currentPlayer = this.players[0];
   }
   game.switchPlayerUI();
-  // for (i = 0; i < this.players.length; i++){
-  //   if (this.currentPlayer.userName === this.players[i].userName)
-  //   {
-  //     var value = i+1;
-  //     this.currentPlayer = this.players[value];
-  //   }
-  //   // } else {
-  //   //   this.currentPlayer = this.players[0]
-  //   // }
-  // }
+
 };
 //Deck Methods
 
@@ -241,7 +235,9 @@ Game.prototype.roundOver = function(){
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
-    
+    $("div.cards").off("click");
+    $("#newGame").show();
+
 };
 };
 
@@ -363,5 +359,11 @@ $(document).ready(function(){
         game.goPlayer();
         $("#tableScore").text("Current Table Score: " + game.tableScore);
       });
+  });
+  $("#newGame").click(function(){
+    game.clearTable();
+    game.newRound();
+    $("div.cards").on("click");
+
   });
 });
