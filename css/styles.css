@@ -1,4 +1,4 @@
-#gameField, #player1, #player2 {
+#gameField, #player1, #player2, #cribShow,#cribDisplay {
   display: none;
 }
 #startGame{
@@ -48,9 +48,7 @@ body {
 .highlightCurrent h4 {
   color: white;
 }
-#cribDisplay {
-  display:none;
-}
+
 #tableScore{
   size: 1.2em;
   color: white;
