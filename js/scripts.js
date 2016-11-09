@@ -49,7 +49,40 @@ Game.prototype.newGame = function(numberOfPlayers) {
   }
   this.deck.deal(this.players);
   this.currentPlayer = this.players[0];
+  this.dealerCrib = this.players[0];
 }
+
+Game.prototype.newRound = function () {
+  //Create and shuffle new deck and reinitialize crib
+  this.deck = new Deck();
+  this.deck.create();
+  this.deck.shuffleDeck();
+  this.crib = [];
+
+  //Empty players' hands
+  this.players.forEach(function(player){
+    player.hand = [];
+    player.goCount = 0;
+  });
+
+  //Deal new hand
+  this.deck.deal(this.players);
+
+  //Switch dealer
+  if (this.dealerCrib === this.players[0]){
+    this.dealerCrib = this.players[1];
+  } else {
+    this.dealerCrib = this.players[0];
+  }
+
+  //Switch current so dealer plays first
+  this.currentPlayer = this.dealerCrib;
+  this.currentPlayer.displayHand();
+  this.currentPlayer.cribCheckbox();
+}
+
+
+
 
 //Move cards from players hand to game.crib
 Game.prototype.toCrib = function(card){
@@ -81,6 +114,7 @@ Game.prototype.toTable = function(card){
         this.currentPlayer.displayHand();
         this.clearTable();
         alert(this.currentPlayer.userName + " got 31! One point for 31, one point for last card.");
+        this.switchPlayer();
       } else{
         alert("This card is not playable");
       }
