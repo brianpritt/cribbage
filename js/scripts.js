@@ -92,7 +92,7 @@ Game.prototype.goPlayer = function(){
   //debugger
   this.currentPlayer.goCount +=1;
   game.switchPlayer();
-  if ((this.players[0].goCount == 1) && (this.players[1].goCount == 1)){
+  if ((this.players[0].goCount >= 1) && (this.players[1].goCount >= 1)){
     this.clearTable();
     this.players[0].goCount = 0;
     this.players[1].goCount = 0;
@@ -227,7 +227,10 @@ Player.prototype.cribCheckbox = function() {
       game.switchPlayer();
       if(game.crib.length < 4){
         game.currentPlayer.cribCheckbox();
-      } 
+      }
+      if (game.crib.length === 4){
+        $("#cribDisplay").show();
+      }
   });
 }
 
@@ -282,7 +285,7 @@ $(document).ready(function(){
           var selectedCard = parseInt($(this).attr("value"));
           var clickedCard = game.currentPlayer.hand[selectedCard];
           game.toTable(clickedCard);
-          $("#tableScore").text("current Table Score: " + game.tableScore);
+          $("#tableScore").text("Current Table  Score: " + game.tableScore);
           console.log(clickedCard);
           console.log(game.tableScore);
           console.log(game.currentPlayer);

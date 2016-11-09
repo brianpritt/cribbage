@@ -48,6 +48,10 @@ body {
 .highlightCurrent h4 {
   color: white;
 }
-#cribDisplay img{
+#cribDisplay {
   display:none;
+}
+#tableScore{
+  size: 1.2em;
+  color: white;
 }
