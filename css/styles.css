@@ -1,4 +1,4 @@
-#gameField, #player1, #player2, #cribShow,#cribDisplay {
+#gameField, #player1, #player2, #cribShow,#cribDisplay, #newGame {
   display: none;
 }
 #startGame{
