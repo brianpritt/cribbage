@@ -228,15 +228,14 @@ Game.prototype.roundOver = function(){
     for(i = 0; i < this.players.length; i++){
       for(j = 0; j < this.players[i].hand.length; j++){
         this.players[i].hand[j].played = false;
-        console.log(this.players[i].hand[j].played);
       }
       this.players[i].displayHand();
     }
+
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
-    $("#player1,#player2 ").children().removeClass("cards");
-
+    $(".cards").off();
     $("#newGame").show();
 
   };
@@ -335,7 +334,7 @@ $(document).ready(function(){
       $("#turnt").html("<img src="+turntCard.cardImage+">");
     }
   });
-  var crick;
+
   $("#startGame").click(function(){
     $("#gameStart").hide();
     $("#gameField").show();
@@ -344,27 +343,35 @@ $(document).ready(function(){
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
     game.players[1].displayHand();
+    });
 
-    $(".cards").click(function(){
+  $(".cards").click(function(){
+    if(game.crib.length === 4){
+      var selectedCard = parseInt($(this).attr("value"));
+      var clickedCard = game.currentPlayer.hand[selectedCard];
+      game.toTable(clickedCard);
+      $("#tableScore").text("Current Table  Score: " + game.tableScore);
+      game.roundOver();
+    };
+  });
+
+  $(".goBtn").click(function(){
+    game.goPlayer();
+    $("#tableScore").text("Current Table Score: " + game.tableScore);
+  });
+
+  $("#newGame").click(function(){
+    game.clearTable();
+    game.newRound();
+    $(".cards").on("click", function(){
       if(game.crib.length === 4){
         var selectedCard = parseInt($(this).attr("value"));
         var clickedCard = game.currentPlayer.hand[selectedCard];
         game.toTable(clickedCard);
         $("#tableScore").text("Current Table  Score: " + game.tableScore);
         game.roundOver();
-      };
-    });
-    
-    $(".goBtn").click(function(){
-      game.goPlayer();
-      $("#tableScore").text("Current Table Score: " + game.tableScore);
-    });
-  });
+      }
+      });
 
-  $("#newGame").click(function(){
-    game.clearTable();
-    game.newRound();
-    $("#player1, #player2").children().addClass("cards");
-    $("#cribShow").hide();
-    });
+  });
 });
