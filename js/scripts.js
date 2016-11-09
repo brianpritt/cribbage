@@ -72,13 +72,13 @@ Game.prototype.toTable = function(card){
         card.played = true;
         this.tableScore += card.cardValue;
         this.addToTableDisplay();
-        game.currentPlayer.displayHand();
-        game.switchPlayer();
+        this.currentPlayer.displayHand();
+        this.switchPlayer();
       } else if(this.tableScore + card.cardValue === 31){
         this.tableScore = 0;
         alert(this.currentPlayer.userName + " has won.");
       } else{
-        alert("This card is not playable")
+        alert("This card is not playable");
       }
     }
   }
@@ -86,6 +86,7 @@ Game.prototype.toTable = function(card){
 //Clears table Score
 Game.prototype.clearTable = function(){
   this.tableScore = 0;
+
 }
 Game.prototype.goPlayer = function(){
   //debugger
@@ -217,12 +218,16 @@ Player.prototype.cribCheckbox = function() {
   //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
     $($("input:checkbox[name="+target.userName+"]:checked").get().reverse()).each(function(){
+
       var box = this;
       var card = parseInt($(box).val());
       game.toCrib(target.hand[card]);
       target.displayHand();
     })
       game.switchPlayer();
+      if(game.crib.length < 4){
+        game.currentPlayer.cribCheckbox();
+      } 
   });
 }
 
@@ -269,13 +274,15 @@ $(document).ready(function(){
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
     game.players[1].displayHand();
-    game.players[1].cribCheckbox();
+
+
 
       $(".cards").click(function(){
         if(game.crib.length === 4){
           var selectedCard = parseInt($(this).attr("value"));
           var clickedCard = game.currentPlayer.hand[selectedCard];
           game.toTable(clickedCard);
+          $("#tableScore").text("current Table Score: " + game.tableScore);
           console.log(clickedCard);
           console.log(game.tableScore);
           console.log(game.currentPlayer);
@@ -283,11 +290,9 @@ $(document).ready(function(){
       });
       $(".goBtn").click(function(){
         game.goPlayer();
-
+        $("#tableScore").text("current Table Score: " + game.tableScore);
       });
   });
-
-
 // $(".discard").click(function(){
 //   $("input:checkbox[name=player1]:checked").each(function(){
 //     var card = this.val();

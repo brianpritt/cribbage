@@ -20,6 +20,8 @@
 }
 img {
   height: 150px;
+  border: 1px solid black;
+  border-radius: 7px;
 }
 body {
   background-color: green;
@@ -41,4 +43,7 @@ body {
 }
 .highlightCurrent {
   border: 10px solid red;
+}
+#cribDisplay img{
+  display:none;
 }
