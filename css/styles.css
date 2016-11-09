@@ -48,9 +48,6 @@ body {
 .highlightCurrent h4 {
   color: white;
 }
-#player1Highlight {
-  width: 194px;
-}
 #cribDisplay img{
   display:none;
 }
