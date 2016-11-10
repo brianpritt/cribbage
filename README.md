@@ -61,7 +61,7 @@ Automatic scoring algorithm.
 
 Source code available at https://github.com/bradcopenhaver/cribbage
 
-Program can be accessed from a web browser at https://bradcopenhaver.github.io/cribbage/index.html
+Program can be accessed from a web browser at https://bradcopenhaver.github.io/cribbage/
 
 ## Known Bugs
 
