@@ -116,10 +116,10 @@ Game.prototype.toTable = function(card){
         this.addToTableDisplay();
         this.currentPlayer.displayHand();
         this.clearTable();
-        alert(this.currentPlayer.userName + " got 31! One point for 31, one point for last card.");
+        message(this.currentPlayer.userName + " got 31! One point for 31, one point for last card.");
         this.switchPlayer();
       } else{
-        alert("This card is not playable");
+        message("This card is not playable");
       }
     }
   }
@@ -238,6 +238,7 @@ Game.prototype.roundOver = function(){
     $(".cards").off();
     $("#newGame").show();
 
+
   };
 };
 
@@ -314,6 +315,13 @@ Player.prototype.cribCheckbox = function() {
   });
 }
 
+var message = function(message) {
+  $("#messageCenter").text(message);
+  var clearMessage = function() {
+    $("#messageCenter").text("");
+  }
+  var timeoutID= window.setTimeout(clearMessage, 2000);
+}
 
 //Global Variable
 var game = new Game();
@@ -363,6 +371,10 @@ $(document).ready(function(){
   $("#newGame").click(function(){
     game.clearTable();
     game.newRound();
+    $("#tableScore").text("");
+    $("#cribShow, #turnt").empty();
+    $("#player1, #player2, #newGame").hide();
+    $("#" + game.currentPlayer.userName + "Highlight").addClass("highlightCurrent");
     $(".cards").on("click", function(){
       if(game.crib.length === 4){
         var selectedCard = parseInt($(this).attr("value"));
@@ -370,8 +382,9 @@ $(document).ready(function(){
         game.toTable(clickedCard);
         $("#tableScore").text("Current Table  Score: " + game.tableScore);
         game.roundOver();
-      }
-      });
+      };
 
+    });
   });
+
 });
