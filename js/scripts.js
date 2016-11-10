@@ -127,6 +127,9 @@ Game.prototype.toTable = function(card){
 Game.prototype.clearTable = function(){
   this.tableScore = 0;
   this.clearTableUI();
+  //Reset each players go counter
+  this.players[0].goCount = 0;
+  this.players[1].goCount = 0;
 }
 
 //Prototype for Go button
@@ -135,8 +138,6 @@ Game.prototype.goPlayer = function(){
   game.switchPlayer();
   if ((this.players[0].goCount >= 1) && (this.players[1].goCount >= 1)){
     this.clearTable();
-    this.players[0].goCount = 0;
-    this.players[1].goCount = 0;
     //add scoring stuff here maybs//
   }
 }
