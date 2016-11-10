@@ -65,7 +65,11 @@ Program can be accessed from a web browser at https://bradcopenhaver.github.io/c
 
 ## Known Bugs
 
+Table sometimes clears when it shouldn't when Go is pressed.
 
+Players can discard more than 2 cards to the crib at start of round.
+
+Players can press Go even when they have a valid play.
 
 ## Support and contact details
 

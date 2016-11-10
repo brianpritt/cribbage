@@ -84,9 +84,6 @@ Game.prototype.newRound = function () {
   this.currentPlayer.cribCheckbox();
 }
 
-
-
-
 //Move cards from players hand to game.crib
 Game.prototype.toCrib = function(card){
   for (i = this.currentPlayer.hand.length-1; i >=0; i--){
@@ -96,6 +93,7 @@ Game.prototype.toCrib = function(card){
     }
   }
 }
+
 //Takes value of card and adds it to running table score.
 Game.prototype.toTable = function(card){
   //Finds card that is clicked on in players hand.
@@ -124,13 +122,15 @@ Game.prototype.toTable = function(card){
     }
   }
 };
+
 //Clears table Score
 Game.prototype.clearTable = function(){
   this.tableScore = 0;
   this.clearTableUI();
 }
+
+//Prototype for Go button
 Game.prototype.goPlayer = function(){
-  //debugger
   this.currentPlayer.goCount +=1;
   game.switchPlayer();
   if ((this.players[0].goCount >= 1) && (this.players[1].goCount >= 1)){
@@ -140,6 +140,7 @@ Game.prototype.goPlayer = function(){
     //add scoring stuff here maybs//
   }
 }
+
 //Switches player when turn is over
 Game.prototype.switchPlayer = function(){
   //checks for current player and switches to other player.
@@ -149,10 +150,9 @@ Game.prototype.switchPlayer = function(){
     this.currentPlayer = this.players[0];
   }
   game.switchPlayerUI();
-
 };
-//Deck Methods
 
+//Deck Methods
 Deck.prototype.shuffleDeck = function(){
   //This is the Fisher-Yates shuffle
   var m = this.cards.length, t, i;
@@ -205,7 +205,6 @@ Deck.prototype.turnOver = function(){
   return topCard;
 }
 
-
 //////////////////* UI LOGIC *//////////////////
 Game.prototype.roundOver = function(){
 
@@ -218,7 +217,6 @@ Game.prototype.roundOver = function(){
   }
   if (playedCount === 8){
     //show crib
-
     $("#cribDisplay").hide()
     $("#cribShow").show();
     for (var i =0; i < this.crib.length; i++){
@@ -231,23 +229,22 @@ Game.prototype.roundOver = function(){
       }
       this.players[i].displayHand();
     }
-
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
     $(".cards").off();
     $("#newGame").show();
-
-
   };
 };
 
+//Display played cards in table area
 Game.prototype.addToTableDisplay = function() {
   var target = this;
   var lastCardIndex = target.table.length - 1;
   $("#table").append("<img src="+target.table[lastCardIndex].cardImage+">");
 }
 
+//Moves player highlight box to current player
 Game.prototype.switchPlayerUI = function(){
   //checks for current player and switches to other player.
   if(this.currentPlayer.userName === this.players[0].userName){
@@ -260,10 +257,12 @@ Game.prototype.switchPlayerUI = function(){
   $("#player1, #player2").hide();
 }
 
+//Removes displayed cards from table area
 Game.prototype.clearTableUI = function() {
   $("#table").empty();
 }
 
+//Displays current player's hand
 Player.prototype.displayHand = function() {
   var target = this;
 
@@ -283,19 +282,15 @@ Player.prototype.displayHand = function() {
   }
 }
 
-
-
-
+//Puts checkboxes and buttons for players to discard to crib
 Player.prototype.cribCheckbox = function() {
   var target = this;
-
   //Add a checkbox beside each card
   for (var i=0; i<target.hand.length; i++) {
     $("#"+target.userName+"card"+i).append("<input name="+target.userName+" type='checkbox' value='"+i+"'></input>");
   }
   //Add a button for discard
   $("#"+target.userName).append("<div><button class='btn btn-info btn-xs discard"+ target.userName +"'>Discard to Crib</button></div>");
-
   //Attach an event listener to discard button
   $(".discard"+target.userName).last().click(function(){
     $($("input:checkbox[name="+target.userName+"]:checked").get().reverse()).each(function(){
@@ -315,6 +310,7 @@ Player.prototype.cribCheckbox = function() {
   });
 }
 
+//Display message in Message Center in play area
 var message = function(message) {
   $("#messageCenter").text(message);
   var clearMessage = function() {
@@ -325,10 +321,10 @@ var message = function(message) {
 
 //Global Variable
 var game = new Game();
-//
 
 $(document).ready(function(){
 
+//player hand show/hide buttons
   $("#player1ShowHide").click(function(){
     $("#player1").toggle();
   });
@@ -336,6 +332,7 @@ $(document).ready(function(){
     $("#player2").toggle();
   });
 
+//clickable deck to turn community card
   $("#deck").click(function(){
     var turntCard = game.deck.turnOver();
     if (game.crib.length === 4) {
@@ -343,6 +340,7 @@ $(document).ready(function(){
     }
   });
 
+//Start Game button
   $("#startGame").click(function(){
     $("#gameStart").hide();
     $("#gameField").show();
@@ -353,6 +351,7 @@ $(document).ready(function(){
     game.players[1].displayHand();
     });
 
+//Click each card to play to table
   $(".cards").click(function(){
     if(game.crib.length === 4){
       var selectedCard = parseInt($(this).attr("value"));
@@ -363,11 +362,13 @@ $(document).ready(function(){
     };
   });
 
+//Go button switches current player and displays table score
   $(".goBtn").click(function(){
     game.goPlayer();
     $("#tableScore").text("Current Table Score: " + game.tableScore);
   });
 
+//New Game button empties crib, hands, and table, then deals new hands
   $("#newGame").click(function(){
     game.clearTable();
     game.newRound();
