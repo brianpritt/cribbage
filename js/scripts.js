@@ -228,20 +228,19 @@ Game.prototype.roundOver = function(){
     for(i = 0; i < this.players.length; i++){
       for(j = 0; j < this.players[i].hand.length; j++){
         this.players[i].hand[j].played = false;
-        console.log(this.players[i].hand[j].played);
       }
       this.players[i].displayHand();
     }
+
     this.clearTable();
     $("#player1, #player2").show();
     $("#player1Highlight, #player2Highlight").removeClass("highlightCurrent");
-    $(".cards").off("click");
+    $(".cards").off();
     $("#newGame").show();
 
-};
-};
 
-Game.prototype.addClickability = function(){}
+  };
+};
 
 Game.prototype.addToTableDisplay = function() {
   var target = this;
@@ -352,9 +351,7 @@ $(document).ready(function(){
     game.players[0].displayHand();
     game.players[0].cribCheckbox();
     game.players[1].displayHand();
-
-  });
-
+    });
 
   $(".cards").click(function(){
     if(game.crib.length === 4){
@@ -374,6 +371,10 @@ $(document).ready(function(){
   $("#newGame").click(function(){
     game.clearTable();
     game.newRound();
+    $("#tableScore").text("");
+    $("#cribShow, #turnt").empty();
+    $("#player1, #player2, #newGame").hide();
+    $("#" + game.currentPlayer.userName + "Highlight").addClass("highlightCurrent");
     $(".cards").on("click", function(){
       if(game.crib.length === 4){
         var selectedCard = parseInt($(this).attr("value"));
@@ -383,7 +384,7 @@ $(document).ready(function(){
         game.roundOver();
       };
 
+    });
   });
-});
 
 });

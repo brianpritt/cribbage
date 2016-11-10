@@ -74,6 +74,11 @@ body {
   vertical-align: 37px;
 }
 #tableScore{
-  size: 1.2em;
+  font-size: 16px;
   color: white;
+}
+#messageCenter {
+  font-size: 16px;
+  color: white;
+  text-align: center;
 }
